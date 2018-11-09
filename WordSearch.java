@@ -40,7 +40,7 @@ public class WordSearch{
       *have a corresponding letter to match any letters that it overlaps.
       *
       *@param word is any text to be added to the word grid.
-      *@param row is the vertical locaiton of where you want the word to start.
+      *@param row is the vertical location of where you want the word to start.
       *@param col is the horizontal location of where you want the word to start.
       *@return true when the word is added successfully. When the word doesn't fit,
       * or there are overlapping letters that do not match, then false is returned
@@ -48,6 +48,11 @@ public class WordSearch{
      */
      public boolean addWordHorizontal(String word,int row, int col) {
           for (int i = 0; i < word.length(); i++) {
+               /* ifstatement is checking to make sure...
+                    > word isn't too big;
+                    > letters of word can overlap
+                    > current spot is empty
+               */
                if (col + i >= data[row].length ||
                     ((word.charAt(i) != data[row][col+i]) &&
                     (data[row][col+i] != '_'))) {
@@ -64,7 +69,7 @@ public class WordSearch{
        *have a corresponding letter to match any letters that it overlaps.
        *
        *@param word is any text to be added to the word grid.
-       *@param row is the vertical locaiton of where you want the word to start.
+       *@param row is the vertical location of where you want the word to start.
        *@param col is the horizontal location of where you want the word to start.
        *@return true when the word is added successfully. When the word doesn't fit,
        *or there are overlapping letters that do not match, then false is returned.
