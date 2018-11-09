@@ -88,4 +88,18 @@ public class WordSearch{
           }
           return true;
      }
+     public boolean addWordDiagonal(String word, int row, int col) {
+          for (int i = 0; i < word.length(); i++) {
+               if (row + i >= data.length ||
+                    col + i >= data[row].length ||
+                    ((word.charAt(i) != data[row+i][col+i]) &&
+                    (data[row+i][col+i] != '_'))) {
+                         return false;
+               }
+          }
+          for (int i = 0; i < word.length(); i++) {
+               data[row+i][col+i] = word.charAt(i);
+          }
+          return true;
+     }
 }

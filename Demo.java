@@ -35,6 +35,31 @@ public class Demo {
           fivesq.addWordHorizontal("EONS", 1, 1);
           System.out.println(fivesq);
 
+          System.out.println("////////////////////////////////////////////////////\n");
+
+          System.out.println("Initializing new WordSearch (7x7 square)...");
+          WordSearch sevensq = new WordSearch(7, 7);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordHorizontal: placing SUPER horizontal in index (0,0)");
+          sevensq.addWordHorizontal("SUPER", 0, 0);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordVertical: placing SMASH vertically in index (0,0)");
+          sevensq.addWordVertical("SMASH", 0, 0);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordDiagonal: placing MARTH and SHEIK diagonally @ (1,0) & (0,0) respectively");
+          sevensq.addWordDiagonal("SHEIK", 0, 0);
+          sevensq.addWordDiagonal("MARTH", 1, 0);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordDiagonal: placing IKE @ (3,3)");
+          sevensq.addWordDiagonal("IKE", 3, 3);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordDiagonal [[error]]: placing NESS @ (4, 0)...expect no change");
+          sevensq.addWordDiagonal("NESS", 4, 0);
+          System.out.println(sevensq);
+          System.out.println("Testing addWordDiagonal [[error]]: placing RIDLEY @ (0, 4)...expect no change");
+          sevensq.addWordDiagonal("RIDLEY", 0, 4);
+          System.out.println(sevensq);
+
           System.out.println("--- END OF TEST ---\n");
      }
 }
