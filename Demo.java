@@ -2,6 +2,7 @@ public class Demo {
      public static void main(String[] args) {
           System.out.println("\n--- BEGINNING OF TEST ---\n");
 
+          //testing horizontal & vertical
           System.out.println("Initializing new WordSearch (5x5 square)...");
           WordSearch fivesq = new WordSearch(5, 5);
           System.out.println(fivesq);
@@ -35,8 +36,9 @@ public class Demo {
           fivesq.addWordHorizontal("EONS", 1, 1);
           System.out.println(fivesq);
 
-          System.out.println("////////////////////////////////////////////////////\n");
+          System.out.println("///////////////////////////////////////////////////////////////\n");
 
+          //testing horizontal, vertical & diagonal
           System.out.println("Initializing new WordSearch (7x7 square)...");
           WordSearch sevensq = new WordSearch(7, 7);
           System.out.println(sevensq);
@@ -59,6 +61,11 @@ public class Demo {
           System.out.println("Testing addWordDiagonal [[error]]: placing RIDLEY @ (0, 4)...expect no change");
           sevensq.addWordDiagonal("RIDLEY", 0, 4);
           System.out.println(sevensq);
+
+          System.out.println("///////////////////////////////////////////////////////////////\n");
+
+          WordSearch twentysq = new WordSearch(20, 20);
+          System.out.println(twentysq);
 
           System.out.println("--- END OF TEST ---\n");
      }
