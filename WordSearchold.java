@@ -7,14 +7,14 @@ public class WordSearchold {
                if (args.length == 2) {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
-                    WordSearch test = new WordSearch(row, col);
+                    WordSearchold test = new WordSearchold(row, col);
                     System.out.println(test);
                     System.exit(1);
                }
                if (args.length == 3) {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
-                    WordSearch test = new WordSearch(row, col, args[2]);
+                    WordSearchold test = new WordSearchold(row, col, args[2]);
                     test.addAllWords();
                     System.exit(1);
                }
@@ -22,7 +22,7 @@ public class WordSearchold {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
                     int seed = Integer.parseInt(args[3]);
-                    WordSearch test = new WordSearch(row, col, args[2], seed);
+                    WordSearchold test = new WordSearchold(row, col, args[2], seed);
                     test.addAllWords();
                     System.exit(1);
                }
@@ -39,7 +39,7 @@ public class WordSearchold {
      private ArrayList<String> wordsAdded; //words that have been successfully added
 
      //CONSTRUCTOR 1 - rows, cols
-     public WordSearch(int rows, int cols) {
+     public WordSearchold(int rows, int cols) {
           data = new char[rows][cols];
           for (int a = 0; a < data.length; a++) {
                for (int b = 0; b < data[a].length; b++) {
@@ -48,7 +48,7 @@ public class WordSearchold {
           }
      }
      //CONSTRUCTOR 2 - rows, cols, fileName
-     public WordSearch(int rows, int cols, String fileName) {
+     public WordSearchold(int rows, int cols, String fileName) {
           if (rows < 0 || cols < 0) {
                throw new IllegalArgumentException("Given dimensions are out of bounds!");
           }
@@ -75,7 +75,7 @@ public class WordSearchold {
           seed = randgen.nextInt();
      }
      //CONSTRUCTOR 3 - rows, cols, fileName, randSeed
-     public WordSearch(int rows, int cols, String fileName, int randSeed) {
+     public WordSearchold(int rows, int cols, String fileName, int randSeed) {
           if (rows < 0 || cols < 0) {
                throw new IllegalArgumentException("Given dimensions are out of bounds!");
           }
