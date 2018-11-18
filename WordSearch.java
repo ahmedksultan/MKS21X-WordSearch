@@ -40,6 +40,9 @@ public class WordSearch {
 
      //CONSTRUCTOR 1 - rows, cols (2args)
      public WordSearch(int rows, int cols) {
+          if (rows < 0 || cols < 0) {
+               throw new IllegalArgumentException("Given dimensions are out of bounds!");
+          }
           data = new char[rows][cols];
           for (int a = 0; a < data.length; a++) {
                for (int b = 0; b < data[a].length; b++) {
