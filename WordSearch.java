@@ -30,6 +30,12 @@ public class WordSearch {
                     System.out.println(output.wordsToAdd);
                     System.out.println(output.randgen);
                     */
+                    /*
+                    output.addWord("epic", 0, 0, 1, 1);
+                    output.addWord("apple", 1, 0, 0, 1);
+                    output.addWord("zoomzoom", 7, 9, 0, -1);
+                    */
+                    System.out.println(output);
                     System.exit(1);
                }
           }
@@ -171,7 +177,7 @@ public class WordSearch {
           }
           return true;
      }
-     private boolean addWord(String word, int row, int col) {
+     public boolean addWordDiagonal(String word, int row, int col) {
           for (int i = 0; i < word.length(); i++) {
                if (row + i >= data.length ||
                     col + i >= data[row].length ||
