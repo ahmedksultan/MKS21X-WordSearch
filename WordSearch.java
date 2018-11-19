@@ -171,7 +171,7 @@ public class WordSearch {
           }
           return true;
      }
-     public boolean addWordDiagonal(String word, int row, int col) {
+     private boolean addWord(String word, int row, int col) {
           for (int i = 0; i < word.length(); i++) {
                if (row + i >= data.length ||
                     col + i >= data[row].length ||
