@@ -35,6 +35,7 @@ public class WordSearch {
                     output.addWord("apple", 1, 0, 0, 1);
                     output.addWord("zoomzoom", 7, 9, 0, -1);
                     */
+
                     System.out.println(output);
                     System.exit(1);
                }
@@ -91,6 +92,7 @@ public class WordSearch {
                     data[a][b] = '_';
                }
           }
+          addAllWords();
           randgen = new Random();
           //seed = ???
      }
@@ -138,7 +140,34 @@ public class WordSearch {
           }
      }
 
-
+     private void addAllWords() {
+          while (wordsToAdd.size() > 0) {
+               //Alma, Ali, and Tejas helped me with this part
+               System.out.println(randgen.nextInt());
+               System.out.println(wordsToAdd);
+               System.out.println(wordsToAdd.size());
+               int idx = Math.abs(randgen.nextInt() % wordsToAdd.size());
+               String word = wordsToAdd.get(idx);
+               while (wordsToAdd.contains(word)) {
+                    boolean complete = false;
+                    int tries = 0;
+                    int rowInc = randgen.nextInt() % 2;
+                    int colInc = randgen.nextInt() % 2;
+                    while (tries < 100 && !(complete)) {
+                         int row = randgen.nextInt(data.length);
+                         int col = randgen.nextInt(data[0].length);
+                         if (addWord(word, row, col, rowInc, colInc)) {
+                              wordsToAdd.remove(word);
+                              wordsAdded.add(word);
+                              complete = true;
+                         }
+                         else {
+                              tries++;
+                         }
+                    }
+               }
+          }
+     }
 
 
 
