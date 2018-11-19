@@ -49,6 +49,7 @@ public class WordSearch {
           //if 4 args, generate random WS with seed!
           //if 5 args, generate random WS with seed with key
      }
+
      private char[][] data;
      private int seed;
      private Random randgen;
@@ -70,6 +71,7 @@ public class WordSearch {
 
      //CONSTRUCTOR 2 - rows, cols, fileName (3args)
      public WordSearch(int rows, int cols, String fileName) {
+          randgen = new Random();
           if (rows < 0 || cols < 0) {
                throw new IllegalArgumentException("Given dimensions are out of bounds!");
           }
@@ -93,7 +95,6 @@ public class WordSearch {
                }
           }
           addAllWords();
-          randgen = new Random();
           //seed = ???
      }
 
@@ -143,9 +144,6 @@ public class WordSearch {
      private void addAllWords() {
           while (wordsToAdd.size() > 0) {
                //Alma, Ali, and Tejas helped me with this part
-               System.out.println(randgen.nextInt());
-               System.out.println(wordsToAdd);
-               System.out.println(wordsToAdd.size());
                int idx = Math.abs(randgen.nextInt() % wordsToAdd.size());
                String word = wordsToAdd.get(idx);
                while (wordsToAdd.contains(word)) {
