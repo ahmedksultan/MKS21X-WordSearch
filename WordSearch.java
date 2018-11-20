@@ -25,16 +25,6 @@ public class WordSearch {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
                     WordSearch output = new WordSearch(row, col, args[2]);
-                    /*
-                    System.out.println(output);
-                    System.out.println(output.wordsToAdd);
-                    System.out.println(output.randgen);
-                    */
-                    /*
-                    output.addWord("epic", 0, 0, 1, 1);
-                    output.addWord("apple", 1, 0, 0, 1);
-                    output.addWord("zoomzoom", 7, 9, 0, -1);
-                    */
 
                     System.out.println(output);
                     System.exit(1);
@@ -147,21 +137,27 @@ public class WordSearch {
      private void addAllWords() {
           while (wordsToAdd.size() > 0) {
                //Alma, Ali, and Tejas helped me with this part
+               //idx - random index that chooses a word out of the wordsToAdd ArrayList
                int idx = Math.abs(randgen.nextInt() % wordsToAdd.size());
                String word = wordsToAdd.get(idx);
                while (wordsToAdd.contains(word)) {
+                    //complete signifies when the word has been added
+                    //tries keeps track of how many tries the function has done
                     boolean complete = false;
                     int tries = 0;
                     int rowInc = randgen.nextInt() % 2;
                     int colInc = randgen.nextInt() % 2;
-                    while (tries < 20 && !(complete)) {
+                    //originally had 50 tries, thanks to Tejas' recommendation did data[0].length * data.length
+                    while (tries < (data[0].length * data.length) && !(complete)) {
                          int row = randgen.nextInt(data.length);
                          int col = randgen.nextInt(data[0].length);
                          if (addWord(word, row, col, rowInc, colInc)) {
                               wordsToAdd.remove(word);
                               wordsAdded.add(word);
                               complete = true;
+                              /* debug stuff!
                               System.out.println("\nAdded: " + word + "\nRow/col: " + row + " " + col + "\nrowInc/colInc: " + rowInc + " " + colInc );
+                              */
                          }
                          tries++;
                     }
