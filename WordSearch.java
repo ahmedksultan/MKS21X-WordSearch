@@ -14,6 +14,7 @@ legacy add methods (horizontal, diagonal, vertical)
 public class WordSearch {
      public static void main(String[] args) {
           try {
+               /*
                if (args.length == 2) {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
@@ -21,11 +22,15 @@ public class WordSearch {
                     System.out.println(output);
                     System.exit(1);
                }
-               if (args.length == 3) {
+               */
+               if (args.length == 3 || args.length == 4) {
                     int row = Integer.parseInt(args[0]);
                     int col = Integer.parseInt(args[1]);
-                    WordSearch output = new WordSearch(row, col, args[2]);
-
+                    int seed = (int)(Math.random() * 10000);
+                    if (args.length == 4) {
+                         seed = Integer.parseInt(args[3]);
+                    }
+                    WordSearch output = new WordSearch(row, col, args[2], seed);
                     System.out.println(output);
                     System.exit(1);
                }
@@ -46,7 +51,9 @@ public class WordSearch {
      private ArrayList<String> wordsToAdd;
      private ArrayList<String> wordsAdded;
 
-     //CONSTRUCTOR 1 - rows, cols (2args)
+     /*
+
+     //CONSTRUCTOR 1 - rows, cols (2args) [[[blank array]]]
      public WordSearch(int rows, int cols) {
           if (rows < 0 || cols < 0) {
                throw new IllegalArgumentException("Given dimensions are out of bounds!");
@@ -59,9 +66,12 @@ public class WordSearch {
           }
      }
 
-     //CONSTRUCTOR 2 - rows, cols, fileName (3args)
-     public WordSearch(int rows, int cols, String fileName) {
-          randgen = new Random();
+     */
+
+     public WordSearch(int rows, int cols, String fileName, int randSeed) {
+          //Tejas helped me finding a solution for this
+          seed = randSeed;
+          randgen = new Random(seed);
           if (rows < 0 || cols < 0) {
                throw new IllegalArgumentException("Given dimensions are out of bounds!");
           }
@@ -85,10 +95,7 @@ public class WordSearch {
                }
           }
           addAllWords();
-          //seed = ???
      }
-
-     //CONSTRUCTOR 3 - rows, cols, fileName, randSeed (4args)
 
      public String toString() {
           String result = "";
@@ -101,7 +108,8 @@ public class WordSearch {
                }
                result = result + "|\n";
           }
-          return result + "\nWords: " + wordsAdded + "\n";
+          System.out.println(" ");
+          return result + "\nWords: " + wordsAdded + " (seed: " + seed + ")\n";
      }
 
      private boolean addWord(String word, int row, int col, int rowInc, int colInc) {
