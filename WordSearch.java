@@ -119,6 +119,9 @@ public class WordSearch {
                int rResult = row + (word.length() * rowInc);
                int cResult = col + (word.length() * colInc);
                if ((rResult < data.length && (rResult >= 0) && (cResult < data[0].length) && (cResult >= 0))) {
+                    if (rowInc == 0 && colInc == 0) {
+                         return false;
+                    }
                     for (int i = 0; i < word.length(); i++) {
                          if (row + (i * rowInc) >= data.length ||
                              col + (i * colInc) >= data[row].length ||
@@ -151,18 +154,18 @@ public class WordSearch {
                     int tries = 0;
                     int rowInc = randgen.nextInt() % 2;
                     int colInc = randgen.nextInt() % 2;
-                    while (tries < 100 && !(complete)) {
+                    while (tries < 20 && !(complete)) {
                          int row = randgen.nextInt(data.length);
                          int col = randgen.nextInt(data[0].length);
                          if (addWord(word, row, col, rowInc, colInc)) {
                               wordsToAdd.remove(word);
                               wordsAdded.add(word);
                               complete = true;
+                              System.out.println("\nAdded: " + word + "\nRow/col: " + row + " " + col + "\nrowInc/colInc: " + rowInc + " " + colInc );
                          }
-                         else {
-                              tries++;
-                         }
+                         tries++;
                     }
+                    wordsToAdd.remove(word);
                }
           }
      }
