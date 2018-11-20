@@ -23,21 +23,34 @@ public class WordSearch {
                     System.exit(1);
                }
                */
-               if (args.length == 3 || args.length == 4) {
-                    int row = Integer.parseInt(args[0]);
-                    int col = Integer.parseInt(args[1]);
-                    int seed = (int)(Math.random() * 10000);
-                    if (args.length == 4) {
-                         seed = Integer.parseInt(args[3]);
-                    }
-                    WordSearch output = new WordSearch(row, col, args[2], seed);
-                    System.out.println(output);
-                    System.exit(1);
+               int row = Integer.parseInt(args[0]);
+               int col = Integer.parseInt(args[1]);
+               int seed = (int)(Math.random() * 10000);
+               String key = "nokey";
+               if (args.length == 4) {
+                    seed = Integer.parseInt(args[3]);
                }
+               if (args.length == 5 && args[4].equals("key")) {
+                    System.out.println("\n--- ANSWER KEY ---\n");
+                    seed = Integer.parseInt(args[3]);
+                    key = "key";
+               }
+               WordSearch output = new WordSearch(row, col, args[2], seed, key);
+               System.out.println(output);
+               System.exit(1);
           }
           catch (NumberFormatException e) {
-               System.out.println("Error!");
+               System.out.println("Error! Wrong inputs have been detected. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
                System.exit(1);
+          }
+          catch (ArrayIndexOutOfBoundsException e) {
+               System.out.println("Error! Your word search must have at least one row. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.exit(1);
+          }
+          catch (NegativeArraySizeException e) {
+               System.out.println("Error! Your array rows/columns are negative. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.exit(1);
+
           }
           //if 2 args, create blank
           //if 3 args, generate random WS
@@ -61,14 +74,14 @@ public class WordSearch {
           data = new char[rows][cols];
           for (int a = 0; a < data.length; a++) {
                for (int b = 0; b < data[a].length; b++) {
-                    data[a][b] = '_';
+                    data[a][b] = ' ';
                }
           }
      }
 
      */
 
-     public WordSearch(int rows, int cols, String fileName, int randSeed) {
+     public WordSearch(int rows, int cols, String fileName, int randSeed, String key) {
           //Tejas helped me finding a solution for this
           seed = randSeed;
           randgen = new Random(seed);
@@ -91,10 +104,15 @@ public class WordSearch {
           data = new char[rows][cols];
           for (int a = 0; a < data.length; a++) {
                for (int b = 0; b < data[a].length; b++) {
-                    data[a][b] = '_';
+                    data[a][b] = ' ';
                }
           }
-          addAllWords();
+          if (key.equals("key")) {
+               addAllWordskey();
+          }
+          else {
+               addAllWords();
+          }
      }
 
      public String toString() {
@@ -124,7 +142,7 @@ public class WordSearch {
                          if (row + (i * rowInc) >= data.length ||
                              col + (i * colInc) >= data[row].length ||
                              ((word.charAt(i) != data[row+(i*rowInc)][col+(i*colInc)]) &&
-                             (data[row+(i*rowInc)][col+(i*colInc)] != '_'))) {
+                             (data[row+(i*rowInc)][col+(i*colInc)] != ' '))) {
                                    return false;
                          }
                     }
@@ -172,8 +190,47 @@ public class WordSearch {
                     wordsToAdd.remove(word);
                }
           }
+          for (int x = 0; x < data.length; x++) {
+               for (int y = 0; y < data[x].length; y++) {
+                    if (data[x][y] == ' ') {
+                         //Tejas helped me with this
+                         data[x][y] = (char)(Math.abs((randgen.nextInt()) % 26) + 'A');
+                    }
+               }
+          }
      }
 
+     private void addAllWordskey() {
+          while (wordsToAdd.size() > 0) {
+               //Alma, Ali, and Tejas helped me with this part
+               //idx - random index that chooses a word out of the wordsToAdd ArrayList
+               int idx = Math.abs(randgen.nextInt() % wordsToAdd.size());
+               String word = wordsToAdd.get(idx);
+               while (wordsToAdd.contains(word)) {
+                    //complete signifies when the word has been added
+                    //tries keeps track of how many tries the function has done
+                    boolean complete = false;
+                    int tries = 0;
+                    int rowInc = randgen.nextInt() % 2;
+                    int colInc = randgen.nextInt() % 2;
+                    //originally had 50 tries, thanks to Tejas' recommendation did data[0].length * data.length
+                    while (tries < (data[0].length * data.length) && !(complete)) {
+                         int row = randgen.nextInt(data.length);
+                         int col = randgen.nextInt(data[0].length);
+                         if (addWord(word, row, col, rowInc, colInc)) {
+                              wordsToAdd.remove(word);
+                              wordsAdded.add(word);
+                              complete = true;
+                              /* debug stuff!
+                              System.out.println("\nAdded: " + word + "\nRow/col: " + row + " " + col + "\nrowInc/colInc: " + rowInc + " " + colInc );
+                              */
+                         }
+                         tries++;
+                    }
+                    wordsToAdd.remove(word);
+               }
+          }
+     }
 
 
 
@@ -189,7 +246,7 @@ public class WordSearch {
               */
               if (col + i >= data[row].length ||
                    ((word.charAt(i) != data[row][col+i]) &&
-                   (data[row][col+i] != '_'))) {
+                   (data[row][col+i] != ' '))) {
                         return false;
               }
          }
@@ -202,7 +259,7 @@ public class WordSearch {
           for (int i = 0; i < word.length(); i++) {
                if (row + i >= data.length ||
                     ((word.charAt(i) != data[row+i][col]) &&
-                    (data[row+i][col] != '_'))) {
+                    (data[row+i][col] != ' '))) {
                          return false;
                }
           }
@@ -216,7 +273,7 @@ public class WordSearch {
                if (row + i >= data.length ||
                     col + i >= data[row].length ||
                     ((word.charAt(i) != data[row+i][col+i]) &&
-                    (data[row+i][col+i] != '_'))) {
+                    (data[row+i][col+i] != ' '))) {
                          return false;
                }
           }
