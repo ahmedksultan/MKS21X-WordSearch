@@ -40,17 +40,20 @@ public class WordSearch {
                System.exit(1);
           }
           catch (NumberFormatException e) {
-               System.out.println("Error! Wrong inputs have been detected. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.out.println("\nError! Wrong inputs have been detected. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
                System.exit(1);
           }
           catch (ArrayIndexOutOfBoundsException e) {
-               System.out.println("Error! Your word search must have at least one row. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.out.println("\nError! Your word search must have at least one row. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
                System.exit(1);
           }
           catch (NegativeArraySizeException e) {
-               System.out.println("Error! Your array rows/columns are negative. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.out.println("\nError! Your array rows/columns are negative. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
                System.exit(1);
-
+          }
+          catch (IllegalArgumentException e) {
+               System.out.println("\nError! Illegal inputs have been detected. \nPlease use this format: java WordSearch [# of rows] [# of columns] [filename] [# seed]* [key]*\n(* denotes optional)\n");
+               System.exit(1);
           }
           //if 2 args, create blank
           //if 3 args, generate random WS
@@ -98,7 +101,7 @@ public class WordSearch {
                }
           }
           catch (FileNotFoundException e) {
-               System.out.println("File not found: " + fileName);
+               System.out.println("\nFile not found: " + fileName + "\n");
                System.exit(1);
           }
           data = new char[rows][cols];
